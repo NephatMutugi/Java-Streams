@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @ Author NMuchiri
@@ -11,16 +12,16 @@ public class JavaStreams {
 
         List<Person> people = getPeople();
 
-        // Iterating using the old imperative approach
-        List<Person> females = new ArrayList<>();
+        // Iterative approach
+        // returns all females
+        iterativeApproach(people);
 
-        for (Person person : people){
-            if (person.getGender().equals(Gender.FEMALE)){
-                females.add(person);
-            }
-        }
+        System.out.println("\n\n");
+        // declarative/ streams approach
+        // returns all males
+        declarativeApproach(people);
 
-        females.forEach(System.out::println);
+
 
     }
 
@@ -36,5 +37,25 @@ public class JavaStreams {
                         new Person("Jane Doe", 23, Gender.FEMALE)
 
                 );
+    }
+
+    private static void iterativeApproach(List<Person> people){
+        // Iterating using the old imperative approach
+        List<Person> females = new ArrayList<>();
+
+        for (Person person : people){
+            if (person.getGender().equals(Gender.FEMALE)){
+                females.add(person);
+            }
+        }
+
+        females.forEach(System.out::println);
+    }
+
+    private static void declarativeApproach(List<Person> people){
+        List<Person> males = people.stream()
+                .filter(person -> person.getGender().equals(Gender.MALE)).toList();
+
+        males.forEach(System.out::println);
     }
 }
