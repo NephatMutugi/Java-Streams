@@ -1,6 +1,6 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @ Author NMuchiri
@@ -20,9 +20,6 @@ public class JavaStreams {
         // declarative/ streams approach
         // returns all males
         declarativeApproach(people);
-
-
-
     }
 
 
@@ -30,15 +27,14 @@ public class JavaStreams {
         return
                 List.of(
                         new Person("James Bond", 23, Gender.MALE),
-                        new Person("Caterina Rostov", 24, Gender.FEMALE),
-                        new Person("Hellen Jepkosgei", 24, Gender.FEMALE),
+                        new Person("Caterina Rostov", 34, Gender.FEMALE),
+                        new Person("Hellen Jepkosgei", 22, Gender.FEMALE),
                         new Person("Ross White", 24, Gender.MALE),
                         new Person("Vladmir Smith", 24, Gender.MALE),
                         new Person("Jane Doe", 23, Gender.FEMALE)
 
                 );
     }
-
     private static void iterativeApproach(List<Person> people){
         // Iterating using the old imperative approach
         List<Person> females = new ArrayList<>();
@@ -53,9 +49,16 @@ public class JavaStreams {
     }
 
     private static void declarativeApproach(List<Person> people){
+
+        // Filter
         List<Person> males = people.stream()
                 .filter(person -> person.getGender().equals(Gender.MALE)).toList();
 
-        males.forEach(System.out::println);
+        // Sort
+        List<Person> orderedList = people.stream().sorted(Comparator.comparing(Person::getAge)).toList();
+        orderedList.forEach(System.out::println);
+
+
+        //males.forEach(System.out::println);
     }
 }
